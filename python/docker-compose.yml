@@ -1,0 +1,13 @@
+version: "3"
+services:
+  python380:
+    build:
+      context: ./python380
+      args:
+        CENTOS_VERSION: centos:centos7.9.2009
+    container_name: python380
+    environment:
+      TZ: "Asia/Shanghai"
+    restart: always
+    networks:
+      - default
