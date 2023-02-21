@@ -6,6 +6,7 @@ services:
       args:
         CENTOS_VERSION: centos:centos7.9.2009
     container_name: python380
+    tty: true
     environment:
       TZ: "Asia/Shanghai"
     restart: always
