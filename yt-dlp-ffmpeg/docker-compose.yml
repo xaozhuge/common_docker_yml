@@ -1,0 +1,14 @@
+version: "3"
+services:
+  yt-dlp-ffmpeg:
+    build:
+      context: ./yt-dlp-ffmpeg
+      args:
+        CENTOS_VERSION: centos:centos7.9.2009
+    container_name: yt-dlp-ffmpeg
+    tty: true
+    environment:
+      TZ: "Asia/Shanghai"
+    restart: always
+    networks:
+      - default
