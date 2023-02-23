@@ -1,0 +1,7 @@
+#该yaml文件提供yt-dlp+ffmpeg服务
+1. 进入容器
+docker exec -it yt-dlp-ffmpeg /bin/bash
+2. 查看yt-dlp版本
+yt-dlp --version
+3. 查看ffmpeg版本
+ffmpeg --version

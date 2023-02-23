@@ -1,0 +1,7 @@
+#该yaml文件提供python3.8.0的镜像
+1. 进入容器
+docker exec -it python380 /bin/bash
+2. 查看python版本
+python3 --version
+3. 查看pip版本
+pip3 --version
