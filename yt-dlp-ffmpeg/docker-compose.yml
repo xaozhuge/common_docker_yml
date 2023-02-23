@@ -1,29 +1,33 @@
 version: "3"
 services:
   #默认使用amd
-  # yt-dlp-ffmpeg-amd:
-  #   build:
-  #     context: ./yt-dlp-ffmpeg-amd
-  #     args:
-  #       CENTOS_VERSION: centos:centos7.9.2009
-  #   container_name: yt-dlp-ffmpeg-amd
-  #   tty: true
-  #   environment:
-  #     TZ: "Asia/Shanghai"
-  #   restart: always
-  #   networks:
-  #     - default
-
-  #如果是苹果arm，使用如下
-  yt-dlp-ffmpeg-arm:
+  yt-dlp:
     build:
-      context: ./yt-dlp-ffmpeg-arm
+      context: ./yt-dlp-ffmpeg-amd
       args:
         CENTOS_VERSION: centos:centos7.9.2009
-    container_name: yt-dlp-ffmpeg-arm
+    container_name: yt-dlp-ffmpeg-amd
+    volumes:
+      - /Users/zzz/Downloads/test:/root/:rw
     tty: true
     environment:
       TZ: "Asia/Shanghai"
     restart: always
     networks:
       - default
+
+  # #如果是苹果arm，使用如下
+  # yt-dlp:
+  #   build:
+  #     context: ./yt-dlp-ffmpeg-arm
+  #     args:
+  #       CENTOS_VERSION: centos:centos7.9.2009
+  #   container_name: yt-dlp-ffmpeg-arm
+    # volumes:
+      # - /Users/zzz/Downloads/test:/root/:rw
+  #   tty: true
+  #   environment:
+  #     TZ: "Asia/Shanghai"
+  #   restart: always
+  #   networks:
+  #     - default
