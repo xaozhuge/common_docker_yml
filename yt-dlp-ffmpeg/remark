@@ -4,4 +4,22 @@ docker exec -it yt-dlp-ffmpeg /bin/bash
 2. 查看yt-dlp版本
 yt-dlp --version
 3. 查看ffmpeg版本
-ffmpeg --version
+ffmpeg -version
+
+4. 打印出可用的格式和信息：
+docker exec ytdlp yt-dlp --proxy socks5://192.168.5.97:7890 --list-formats https://www.youtube.com/watch?v=GjhetHGIKLg
+
+5. 下载分辨率等于或大于 720p 的最佳格式（视频 + 音频）。并将此文件另存为 video_id.extension (1La4QzGeaaQ.mp4)：
+docker exec ytdlp yt-dlp --proxy socks5://192.168.5.97:7890  -f "best[height>=720]" https://www.youtube.com/watch?v=GjhetHGIKLg -o '%(id)s.%(ext)s' -P /root
+
+6. 下载 mp4 格式的 1080p 视频并与最佳 m4a 音频格式合并：
+docker exec ytdlp yt-dlp --proxy socks5://192.168.5.97:7890  -f 'bv[height=1080][ext=mp4]+ba[ext=m4a]' --merge-output-format mp4 https://www.youtube.com/watch?v=GjhetHGIKLg -o '%(id)s.%(ext)s' -P /root
+
+7. 列出可选字幕
+docker exec ytdlp yt-dlp --proxy socks5://192.168.5.97:7890  --list-subs https://www.youtube.com/watch?v=GjhetHGIKLg
+	
+
+8. 下载视频并生成字幕文件
+docker exec ytdlp yt-dlp --proxy socks5://192.168.5.97:7890  -f 'bv[height=720][ext=mp4]+ba[ext=m4a]' --sub-langs zh-CN  --embed-subs  --merge-output-format mp4  https://www.youtube.com/watch?v=GjhetHGIKLg -o '%(id)s.%(ext)s' -P /root
+
+ 
