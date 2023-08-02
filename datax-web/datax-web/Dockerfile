@@ -20,6 +20,7 @@ COPY jdk-8u131-linux-x64.tar.gz /usr/local/
 COPY apache-maven-3.6.3-bin.tar.gz /usr/local/
 COPY DataX.tar.gz /usr/local/
 COPY datax-web.tar.gz /usr/local/
+COPY datax-web-2.1.2.tar.gz /usr/local/
 
 # 切换到 /usr/local/ 目录下
 WORKDIR /usr/local/
@@ -58,11 +59,15 @@ WORKDIR /usr/local/DataX/
 RUN sed -i "s#<module>oscarwriter</module>#<!-- <module>oscarwriter</module> -->#" pom.xml
 RUN mvn -U clean package assembly:assembly -Dmaven.test.skip=true
 
-# 克隆并编译 datax-web 的源码
+
+# 解压
 WORKDIR /usr/local/
-RUN tar -zxvf datax-web.tar.gz
-WORKDIR /usr/local/datax-web/
-mvn clean install 
+RUN tar -zxvf datax-web-2.1.2.tar.gz
+WORKDIR /usr/local/datax-web-2.1.2
+RUN ./bin/install.sh --force
+RUN sed -i 's@PYTHON_PATH=@PYTHON_PATH=/usr/local/DataX/target/datax/datax/bin/datax.py@' /usr/local/datax-web-2.1.2/modules/datax-executor/bin/env.properties
+
+
 
 
 
