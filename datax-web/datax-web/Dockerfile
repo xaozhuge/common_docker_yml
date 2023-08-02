@@ -66,6 +66,8 @@ RUN tar -zxvf datax-web-2.1.2.tar.gz
 WORKDIR /usr/local/datax-web-2.1.2
 RUN ./bin/install.sh --force
 RUN sed -i 's@PYTHON_PATH=@PYTHON_PATH=/usr/local/DataX/target/datax/datax/bin/datax.py@' /usr/local/datax-web-2.1.2/modules/datax-executor/bin/env.properties
+RUN ./bin/start-all.sh
+
 
 
 

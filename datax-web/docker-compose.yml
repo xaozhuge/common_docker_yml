@@ -17,6 +17,8 @@ services:
     build:
       context: ./datax_web
     container_name: datax_web_c
+    ports:
+      - 9527:9527
     volumes:
       - ./job:/data
     tty: true
