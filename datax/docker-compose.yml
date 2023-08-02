@@ -1,0 +1,10 @@
+version: "3"
+services:
+  datax:
+    build:
+      context: ./datax
+    container_name: datax_c
+    tty: true
+    restart: always
+    networks:
+      - default
