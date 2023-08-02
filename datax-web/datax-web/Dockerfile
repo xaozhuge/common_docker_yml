@@ -19,6 +19,7 @@ RUN yum -y install git
 COPY jdk-8u131-linux-x64.tar.gz /usr/local/
 COPY apache-maven-3.6.3-bin.tar.gz /usr/local/
 COPY DataX.tar.gz /usr/local/
+COPY datax-web.tar.gz /usr/local/
 
 # 切换到 /usr/local/ 目录下
 WORKDIR /usr/local/
@@ -56,6 +57,14 @@ RUN tar -zxvf DataX.tar.gz
 WORKDIR /usr/local/DataX/
 RUN sed -i "s#<module>oscarwriter</module>#<!-- <module>oscarwriter</module> -->#" pom.xml
 RUN mvn -U clean package assembly:assembly -Dmaven.test.skip=true
+
+# 克隆并编译 datax-web 的源码
+WORKDIR /usr/local/
+RUN tar -zxvf datax-web.tar.gz
+WORKDIR /usr/local/datax-web/
+mvn clean install 
+
+
 
 # 创建配置文件存放用文件夹
 RUN mkdir /data
