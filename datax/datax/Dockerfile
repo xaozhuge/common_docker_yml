@@ -15,14 +15,17 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime > /etc/timezone
 RUN yum -y install wget
 RUN yum -y install git
 
+# 上传解压 JDK
+COPY jdk-8u131-linux-x64.tar.gz /usr/local/
+
 # 切换到 /usr/local/ 目录下
 WORKDIR /usr/local/
 
-# 下载解压 JDK
-RUN wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie"  http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz
+# 上传解压 JDK
 RUN tar -zxvf jdk-8u131-linux-x64.tar.gz
 RUN mv jdk1.8.0_131  jdk1.8
 RUN rm -f jdk-8u131-linux-x64.tar.gz
+
 # 下载解压 Maven
 RUN wget https://dlcdn.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz --no-check-certificate
 RUN tar -zxvf apache-maven-3.6.3-bin.tar.gz
