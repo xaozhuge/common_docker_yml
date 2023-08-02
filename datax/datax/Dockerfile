@@ -55,10 +55,16 @@ WORKDIR /usr/local/
 RUN tar -zxvf DataX.tar.gz
 WORKDIR /usr/local/DataX/
 RUN sed -i "s#<module>oscarwriter</module>#<!-- <module>oscarwriter</module> -->#" pom.xml
-# RUN mvn -U clean package assembly:assembly -Dmaven.test.skip=true
+RUN mvn -U clean package assembly:assembly -Dmaven.test.skip=true
 
 # 创建配置文件存放用文件夹
 RUN mkdir /data
+RUN cp /usr/local/DataX/target/datax/datax/job/job.json /data/
 WORKDIR /data
 
+# 容器内测试
+# /usr/local/DataX/target/datax/datax/bin/datax.py /data/job.json
+
+# 容器外测试
+# docker exec datax_c /usr/local/DataX/target/datax/datax/bin/datax.py /data/job.json
 
