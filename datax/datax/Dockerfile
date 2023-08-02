@@ -15,19 +15,20 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime > /etc/timezone
 RUN yum -y install wget
 RUN yum -y install git
 
-# 上传解压 JDK
+# 上传解压 JDK maven DataX
 COPY jdk-8u131-linux-x64.tar.gz /usr/local/
+COPY apache-maven-3.6.3-bin.tar.gz /usr/local/
+COPY DataX.tar.gz /usr/local/
 
 # 切换到 /usr/local/ 目录下
 WORKDIR /usr/local/
 
-# 上传解压 JDK
+# 解压 JDK
 RUN tar -zxvf jdk-8u131-linux-x64.tar.gz
 RUN mv jdk1.8.0_131  jdk1.8
 RUN rm -f jdk-8u131-linux-x64.tar.gz
 
-# 下载解压 Maven
-RUN wget https://dlcdn.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz --no-check-certificate
+# 解压 Maven
 RUN tar -zxvf apache-maven-3.6.3-bin.tar.gz
 RUN mv apache-maven-3.6.3 maven
 RUN rm -f apache-maven-3.6.3-bin.tar.gz
@@ -51,15 +52,13 @@ ENV PATH $PATH:$MAVEN_HOME/bin
 
 # 克隆并编译 DataX 的源码
 WORKDIR /usr/local/
-RUN git clone https://github.com/alibaba/DataX.git
+RUN tar -zxvf DataX.tar.gz
 WORKDIR /usr/local/DataX/
 RUN sed -i "s#<module>oscarwriter</module>#<!-- <module>oscarwriter</module> -->#" pom.xml
-RUN mvn -U clean package assembly:assembly -Dmaven.test.skip=true
+# RUN mvn -U clean package assembly:assembly -Dmaven.test.skip=true
 
 # 创建配置文件存放用文件夹
 RUN mkdir /data
 WORKDIR /data
 
-# 启动命令
-ENTRYPOINT ["/usr/bin/python", "/usr/local/DataX/target/datax/datax/bin/datax.py"]
-CMD [""]
+
