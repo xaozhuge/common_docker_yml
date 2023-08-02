@@ -4,6 +4,8 @@ services:
     build:
       context: ./datax
     container_name: datax_c
+    volumes:
+      - ./job:/data
     tty: true
     restart: always
     networks:
