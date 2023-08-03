@@ -11,9 +11,8 @@ USER root
 ENV TZ Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime > /etc/timezone
 
-# 安装 Git 和 Wget
+# Wget
 RUN yum -y install wget
-RUN yum -y install git
 
 # 上传解压 JDK maven DataX
 COPY jdk-8u131-linux-x64.tar.gz /usr/local/
