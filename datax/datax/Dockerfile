@@ -52,6 +52,7 @@ ENV PATH $PATH:$MAVEN_HOME/bin
 # 克隆并编译 DataX 的源码
 WORKDIR /usr/local/
 RUN tar -zxvf DataX.tar.gz
+RUN rm -f DataX.tar.gz
 WORKDIR /usr/local/DataX/
 RUN sed -i "s#<module>oscarwriter</module>#<!-- <module>oscarwriter</module> -->#" pom.xml
 RUN mvn -U clean package assembly:assembly -Dmaven.test.skip=true
