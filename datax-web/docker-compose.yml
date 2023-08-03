@@ -1,18 +1,5 @@
 version: "3"
 services:
-  datax_web:
-    build:
-      context: ./datax-web
-    container_name: datax_web_c
-    command: sh -c "/bin/bash /usr/local/datax-web-2.1.2/bin/start-all.sh"  # 替换为您想要执行的实际命令
-    ports:
-      - 9527:9527
-    volumes:
-      - ./job:/data
-    tty: true
-    restart: always
-    networks:
-      - default
   datax_web_mysql:
     image: mysql:5.7
     restart: always
@@ -29,3 +16,15 @@ services:
     ports:
       - 3307:3306
     container_name: datax_web_mysql_c
+  datax_web:
+    build:
+      context: ./datax-web
+    container_name: datax_web_c
+    ports:
+      - 9527:9527
+    volumes:
+      - ./job:/data
+    tty: true
+    restart: always
+    networks:
+      - default
