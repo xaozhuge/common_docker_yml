@@ -1,0 +1,41 @@
+{
+  "job": {
+    "content": [
+      {
+        "reader": {
+          "name": "mysqlreader",
+          "parameter": {
+          "column": ["id","code", "position"],
+          "connection": [
+            {
+          "jdbcUrl": ["jdbc:mysql://172.31.0.6:4000/db_zhun"],
+          "table": ["script_log"]
+            }
+          ],
+          "username": "root",
+          "password": ""
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+          "column": ["id","code", "position"],
+          "connection": [
+            {
+            "jdbcUrl": "jdbc:mysql://172.31.0.6:4000/db_zhun",
+            "table": ["test_zzz"]
+            }
+          ],
+          "username": "root",
+          "password": ""
+          }
+        }
+      }
+    ],
+    "setting": {
+      "speed": {
+        "channel": 1
+      }
+    }
+  }
+}
