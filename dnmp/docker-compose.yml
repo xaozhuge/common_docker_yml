@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  nginx:
+    image: "nginx:1.22"
+    volumes:
+      # nginx日志
+      - ./log:/var/log/nginx/
+      # nginx配置（php项目）
+      - ./conf:/etc/nginx/conf.d
+      # nginx目录，用于图片、js等
+      - ${NGINX_PROJECT_ROOT}:/etc/nginx/html
+    restart: always
+    container_name: 'nginx_c'
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8011:8011"
