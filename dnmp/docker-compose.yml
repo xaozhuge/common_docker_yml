@@ -16,3 +16,26 @@ services:
       - "80:80"
       - "443:443"
       - "8011:8011"
+  php56:
+    build:
+      context: ./dockerfile
+      dockerfile: php56_alpine_Dockerfile
+    volumes:
+      # php配置
+      - ./conf/php.ini:/usr/local/etc/php/php.ini
+      # 项目目录映射
+      - ${PHP56_PROJECT_ROOT}:/var/www/html/
+    restart: always
+    container_name: 'php56_c'
+  mysql:
+      image: mysql:5.6
+      ports:
+          - "3306:3306"
+      volumes:
+          - ./mysqldata:/var/lib/mysql/
+          - ./log:/var/log/mysql/
+      environment:
+          MYSQL_ROOT_PASSWORD: "$MYSQL_ROOT_PASSWORD"
+          TZ: "$TZ"
+          LANG: "C.UTF-8"
+      container_name: 'mysql_c'
