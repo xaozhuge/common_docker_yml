@@ -1,0 +1,16 @@
+FROM php:5.6-fpm-alpine
+
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories ;
+
+RUN apk add --no-cache --virtual .build-deps\
+        pcre-dev ${PHPIZE_DEPS}\
+        autoconf \
+    && apk add --no-cache libpng-dev \
+        libmcrypt-dev \
+        libressl-dev \
+    && apk add -U tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && apk del tzdata \
+    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install pdo pdo_mysql pcntl zip mcrypt \
+    && pecl update-channels \
+	&& rm -rf /tmp/pear ~/.pearrc \
+    && apk del --purge .build-deps
