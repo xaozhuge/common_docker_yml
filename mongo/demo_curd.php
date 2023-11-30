@@ -40,4 +40,3 @@
 	// 删除文档
 	// $deleteResult = $collection->remove(['name' => 'John']);
 	echo "Deleted {$deleteResult['n']} document(s)" . PHP_EOL;
-}
