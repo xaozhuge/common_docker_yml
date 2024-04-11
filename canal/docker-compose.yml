@@ -1,0 +1,12 @@
+version: '3'
+services:
+  canal-server:
+    build:
+      context: ./canal
+    container_name: canal-server_c
+    volumes:
+      - ${CANAL_LOG_DIR}:/home/admin/canal-server/logs/
+      - ${CANAL_CONF}:/home/admin/canal-server/conf/canal.properties
+      - ${EXAMPLE_INSTANCE_CONF_DIR}:/home/admin/canal-server/conf/example/
+    restart: always
+    tty: true
