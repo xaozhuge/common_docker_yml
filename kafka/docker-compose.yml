@@ -1,0 +1,14 @@
+version: '3'
+services:
+  kafka:
+    build:
+      context: ./kafka
+    container_name: kafka_c
+    volumes:
+      - ${PROJECT_LOG_DIR}:/data/kafka/logs/
+      - ${KAFKA_LOG_DIR}:/data/kafka/kafka-logs/
+      - ${KAFKA_CONF}:/data/kafka/config/server.properties
+    restart: always
+    ports:
+      - "${KAFKA_PORT}:9092"
+    tty: true
