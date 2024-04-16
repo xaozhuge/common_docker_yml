@@ -1,0 +1,10 @@
+# 修改如下配置
+listeners=PLAINTEXT://:9092
+修改为
+listeners=PLAINTEXT://173.16.0.238:9092
+
+log.dirs=/tmp/kafka-logs
+修改为
+log.dirs=/data/kafka/kafka-logs
+
+
